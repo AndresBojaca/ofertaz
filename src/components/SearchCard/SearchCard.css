@@ -1,131 +1,133 @@
 .search__card {
-    width: 100%;
-    background: var(--color-midnight-blue-background);
-    position: relative;
-    margin-top: -120px;
-    border-radius: 5px;
-    display: flex;
-    gap: 10px;
-    flex-direction: column;
-    transition: all .3s;
-    margin-bottom: 2rem;
-    padding: 28px 28px;
-    box-shadow: 0 5px 10px #00000017;
+  width: 100%;
+  background: var(--color-background-secondary);
+  position: relative;
+  margin-top: 2rem;
+  border-radius: 5px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  transition: all .3s;
+  margin-bottom: 2rem;
+  padding: 28px 28px;
+  box-shadow: 0 5px 10px #00000017;
 }
 
 .search__card::after {
-    content: '';
-    width: 95%;
-    background: #00000017;
-    height: 10px;
-    margin: auto;
-    position: absolute;
-    bottom: -3px;
-    left: 25px;
-    filter: blur(9px);
-    z-index: -1;
+  content: '';
+  width: 95%;
+  background: #00000017;
+  height: 10px;
+  margin: auto;
+  position: absolute;
+  bottom: -3px;
+  left: 25px;
+  filter: blur(9px);
+  z-index: -1;
 }
 
 .search__card .tool {
-    animation: 0.1s ease-out 0s 1 fadeInScale;
-    background-color: var(--color-lime);
-    color: var(--color-midnight-blue);
-    margin: 5px;
-    font-weight: bold;
-    width: fit-content;
-    height: fit-content;
-    transition: all .3s;
-    cursor: pointer;
-    border-radius: 4px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  animation: 0.1s ease-out 0s 1 fadeInScale;
+  background-color: var(--color-background-third);
+  color: var(--color-background-primary);
+  margin: 5px;
+  font-weight: bold;
+  width: fit-content;
+  height: fit-content;
+  transition: all .3s;
+  cursor: pointer;
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .search__card .tool:hover{
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 .search__card .tool span{
-    padding: 5px 10px;
-    font-size: 14px;
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: var(--color-primary);
+  border-radius: 4px;
 }
 
 .search__input{
-    position: relative;
-    flex-grow: 8;
-    transition: all 3s ease-in;
+  position: relative;
+  flex-grow: 8;
+  transition: all 3s ease-in;
 }
 
 .search__input input{
-    border: none;
-    padding: 15px 25px;
-    border-radius: .5rem;
-    background-color: var(--color-midnight-blue);
-    width: 100%;
-    color: white;
-    font-size: 14px;
+  border: none;
+  padding: 15px 25px;
+  border-radius: .5rem;
+  background-color: var(--color-background-third);
+  width: 100%;
+  color: var(--color-text-primary);
+  font-size: 14px;
 }
 .search__input input::placeholder{
-    color: var(--color-gray);
+  color: var(--color-text-primary);
 }
 .search__input input:active,
 .search__input input:focus-visible{
-    border: none;
-    outline: none;
+  border: none;
+  outline: none;
 }
 
 .search__input--container{
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .close-btn {
-    background: var(--color-midnight-blue);
-    height: 100%;
-    padding: 10px;
-    right: -35px;
-    top: 0;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-    transition: all .3s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
+  background: var(--color-midnight-blue);
+  height: 100%;
+  padding: 10px;
+  right: -35px;
+  top: 0;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  transition: all .3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
 }
 .clear-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: underline;
-    text-decoration-color: var(--color-lime);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: underline;
+  text-decoration-color: var(--color-lime);
 }
 
 .clear-btn h1 {
-    font-size: 16px;
-    font-weight: bold;
-    color: var(--color-lime);
-    margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--color-primary);
+  margin: 0;
 }
 .clear-btn:hover h1{
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .tools-container{
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 10px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
 }
 @media (max-width: 1024px){
 
-    .search__card{
-        height: 100% !important;
-        margin-bottom: 3rem;
-    }
+  .search__card{
+      height: 100% !important;
+      margin-bottom: 3rem;
+  }
 }
 
 

@@ -1,0 +1,56 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  background-color: rgba(0, 0, 0, 0.322)
+}
+
+.header__logo{
+  font-size: 2rem;
+}
+.header__logo .ofert {
+  color: var(--color-primary);
+  opacity: 40%;
+}
+
+.header__logo .a-letter {
+  color: var(--color-primary);
+  opacity: 60%;
+  font-weight: 800;
+
+}
+.header__logo .z-letter {
+  color: var(--color-primary);
+  font-weight: 800;
+
+}
+
+.header__search input {
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  width: 200px;
+}
+
+.header__actions {
+  display: flex;
+  gap: 10px;
+}
+
+.header__button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.header__button--login {
+  background-color: #007bff;
+  color: white;
+}
+
+.header__button--signup {
+  background-color: #28a745;
+  color: white;
+}
