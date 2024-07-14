@@ -35,7 +35,7 @@ export default function Header() {
           {/* Item #1 */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button className="mr-2 text-white bg-background">
+              <Button className="mr-2 text-white bg-background" variant={'outline'}>
                 <LogIn className="mr-2 h-4 w-4" /> Iniciar Sesión
               </Button>
             </DropdownMenuTrigger>

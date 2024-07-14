@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import closelogo from "../../../public/icon-remove.svg";
+import { X } from "lucide-react"
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   removeallTags,
@@ -57,7 +59,7 @@ function SearchCard({ setSearchText }:any) {
                 className="close-btn"
                 onClick={() => dispatch(removeTag(tool))}
               >
-                <img src={closelogo} alt="" />
+                <X className="text-white h-5 font-bold" />
               </div>
             </div>
           ))}

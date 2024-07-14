@@ -37,6 +37,8 @@
 }
 .job__card--logo{
     margin-right: 20px;
+    width: 85px;
+    height: 85px;
 }
 .job__card__company--text{
     font-size: 14px;

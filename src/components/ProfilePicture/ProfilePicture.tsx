@@ -54,18 +54,18 @@ const ProfilePicture = ({ url, name }: any) => {
   };
 
   return isValidUrl && url ? (
-    <img src={url} alt="Profile" style={{ width: '100px', height: '100px', borderRadius: '50%' }} />
+    <img src={url} alt="Profile" style={{ width: '100%', height: '100%', borderRadius: '50%' }} />
   ) : (
     <div
       style={{
-        width: '100px',
-        height: '100px',
+        width: '100%',
+        height: '100%',
         borderRadius: '50%',
         background: getRandomGradient(),
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontSize: '36px',
+        fontSize: '25px',
         color: 'white',
       }}
     >
