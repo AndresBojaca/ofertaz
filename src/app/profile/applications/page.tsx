@@ -72,10 +72,12 @@ export default function SettingsAccountPage() {
                 {applications.map((application) => (
                   <TableRow key={application.id}>
                     <TableCell>
-                      <div className="font-medium">{application.JobOffer.Company.name}</div>
-                      <div className="text-sm text-muted-foreground md:inline">
-                      {application.JobOffer.title}
-                      </div>
+                      <Link href={`/offers/${application.jobOfferId}`}>
+                        <div className="font-medium">{application.JobOffer.Company.name}</div>
+                        <div className="text-sm text-muted-foreground md:inline">
+                          {application.JobOffer.title}
+                        </div>
+                      </Link>
                     </TableCell>
                     <TableCell>{new Date(application.appliedAt).toLocaleDateString()}</TableCell>
                     <TableCell><Badge variant="outline" className='bg-orange-500/15 border-orange-500 text-orange-400'>{application.status}</Badge></TableCell>

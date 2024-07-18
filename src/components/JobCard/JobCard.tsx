@@ -2,8 +2,7 @@
 'use client';
 
 import { useDispatch } from 'react-redux'
-import { addTag } from '@/store/TagsSlice'
-
+import { addTag } from '@/store//TagsSlice'
 import "./JobCard.css";
 import ProfilePicture from '../ProfilePicture/ProfilePicture';
 

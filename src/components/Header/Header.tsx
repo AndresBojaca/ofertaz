@@ -126,19 +126,12 @@ export default function Header() {
         </div>
 
         {/* Mostrar menú desplegable en dispositivos móviles si está abierto */}
+      </div>
         {isOpen && (
           <div className="md:hidden px-4">
             <Buttons />
-            {/* Mostrar nombre y foto del usuario solo si está en sesión */}
-            {sessionData.user && (
-              <div className="flex items-center space-x-4">
-                <span className="text-gray-800 dark:text-white">{sessionData.user.name}</span>
-                <ProfilePicture url="" name={sessionData.user.name} fontSize='10' useFirstLetterOnly />
-              </div>
-            )}
           </div>
         )}
-      </div>
     </nav>
   );
 }

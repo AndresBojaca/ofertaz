@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { tiempoTranscurrido } from "@/lib/utils";
+import Link from "next/link";
 import axios from 'axios';
 import SearchCard from "@/components/SearchCard/SearchCard";
 import JobCard from "@/components/JobCard/JobCard";
@@ -59,6 +60,7 @@ export default function Home() {
     <>
       <SearchCard setSearchText={setSearchText} />
       {filteredArr.map((job) =>
+      <Link href={`/offers/${job.id}`}>
         <JobCard
           date={tiempoTranscurrido(job.date)}
           contract={job.contract}
@@ -70,6 +72,7 @@ export default function Home() {
           level={job.level}
           skills={job.skills}
         />
+        </Link>
       )}
     </>
   );
