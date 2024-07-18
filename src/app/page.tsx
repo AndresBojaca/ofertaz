@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { tiempoTranscurrido } from "@/lib/utils";
-import { store } from "@/store/store";
 import axios from 'axios';
 import SearchCard from "@/components/SearchCard/SearchCard";
 import JobCard from "@/components/JobCard/JobCard";
@@ -13,7 +12,7 @@ interface Job {
   contract: string;
   location: string;
   logo: string;
-  Company: any ;
+  Company: any;
   role: string;
   position: string;
   level: string;
@@ -25,7 +24,7 @@ export default function Home() {
   const [data, setData] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
-  const tags = useSelector((state:any) => state.tags);
+  const tags = useSelector((state: any) => state.tags);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,7 +48,7 @@ export default function Home() {
   const filters = tags.length > 0 ? tags : [];
   const filteredArr = data.filter((job) => {
     const tags = [job.role, job.level].concat(job.skills);
-    const matchesTags = filters.every((f:any) => tags.includes(f));
+    const matchesTags = filters.every((f: any) => tags.includes(f));
     const matchesSearchText = job.position.toLowerCase().includes(searchText.toLowerCase()) ||
       job.Company.name.toLowerCase().includes(searchText.toLowerCase()) ||
       tags.some(tag => tag.toLowerCase().includes(searchText.toLowerCase()));
@@ -57,21 +56,21 @@ export default function Home() {
   });
 
   return (
-    <main className="container">
-        <SearchCard setSearchText={setSearchText} />
-        {filteredArr.map((job) =>
-          <JobCard
-            date={tiempoTranscurrido(job.date)}
-            contract={job.contract}
-            location={job.location}
-            logo={job.Company.logo}
-            company={job.Company.name}
-            role={job.role}
-            position={job.position}
-            level={job.level}
-            skills={job.skills}
-          />
-        )}
-    </main>
+    <>
+      <SearchCard setSearchText={setSearchText} />
+      {filteredArr.map((job) =>
+        <JobCard
+          date={tiempoTranscurrido(job.date)}
+          contract={job.contract}
+          location={job.location}
+          logo={job.Company.logo}
+          company={job.Company.name}
+          role={job.role}
+          position={job.position}
+          level={job.level}
+          skills={job.skills}
+        />
+      )}
+    </>
   );
 }

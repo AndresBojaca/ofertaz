@@ -10,7 +10,7 @@
       --color-background-third: #233554;
       --color-text-primary: #ccd6f6;
       --color-text-secondary: #8892b0;
-      --color-primary: #64ffda;
+      --color-primary: #22d3ee;
 
       --background: 0 0% 100%;
       --foreground: 222.2 84% 4.9%;
@@ -74,4 +74,8 @@
     body {
       @apply bg-background text-foreground;
     }
+  }
+
+  .bg-primary{
+    background-color: var(--color-primary);
   }

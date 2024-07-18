@@ -8,10 +8,10 @@
 
 .header__logo{
   font-size: 2rem;
+  cursor: pointer;
 }
 .header__logo .ofert {
-  color: var(--color-primary);
-  opacity: 40%;
+  color: var(--color-text-primary);
 }
 
 .header__logo .a-letter {

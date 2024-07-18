@@ -10,10 +10,9 @@ import ProfilePicture from '../ProfilePicture/ProfilePicture';
 export default function JobCard(props: any) {
 
   const dispatch = useDispatch();
-  console.log(props);
   
   return (
-    <div className="job__card">
+    <div className="job__card dark:bg-slate-900 bg-slate-50">
       <div className="job__card--logo">
         <ProfilePicture  url={props.logo} name={props.company} />
       </div>
@@ -38,17 +37,17 @@ export default function JobCard(props: any) {
       </div>
       <div className="job__card--tools">
         {props.role && (
-          <div className="tool" onClick={() => dispatch(addTag(props.role))}>
+          <div className="tool bg-black/5 dark:bg-white/5 text-slate-900 dark:text-slate-50" onClick={() => dispatch(addTag(props.role))}>
             {props.role}
           </div>
         )}
         {props.level && (
-          <div className="tool" onClick={() => dispatch(addTag(props.level))}>
+          <div className="tool bg-black/5 dark:bg-white/5 text-slate-900 dark:text-slate-50" onClick={() => dispatch(addTag(props.level))}>
             {props.level}
           </div>
         )}
         {props.skills.map((skill:any, index:any) => (
-          <div key={index} className="tool" onClick={() => dispatch(addTag(skill))}>
+          <div key={index} className="tool bg-black/5 dark:bg-white/5 text-slate-900 dark:text-slate-50" onClick={() => dispatch(addTag(skill))}>
             {skill}
           </div>
         ))}

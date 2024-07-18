@@ -1,6 +1,5 @@
 .search__card {
   width: 100%;
-  background: var(--color-background-secondary);
   position: relative;
   margin-top: 2rem;
   border-radius: 5px;
@@ -63,13 +62,8 @@
   border: none;
   padding: 15px 25px;
   border-radius: .5rem;
-  background-color: var(--color-background-third);
   width: 100%;
-  color: var(--color-text-primary);
   font-size: 14px;
-}
-.search__input input::placeholder{
-  color: var(--color-text-primary);
 }
 .search__input input:active,
 .search__input input:focus-visible{

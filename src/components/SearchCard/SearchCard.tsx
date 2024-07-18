@@ -36,13 +36,14 @@ function SearchCard({ setSearchText }:any) {
 
   return (
     <div className="w-full">
-      <div className="search__card">
+      <div className="search__card dark:bg-slate-900 bg-slate-50">
         <div className="search__input--container">
           <div className="search__input">
             <input
               placeholder="Buscar por Tecnología, Lenguaje, Framework, Locación etc..."
               value={inputValue}
               onChange={handleInputChange}
+              className="dark:bg-slate-700 bg-slate-200 placeholder-slate-900 dark:placeholder-slate-50"
             />
           </div>
           <div className="clear-btn"

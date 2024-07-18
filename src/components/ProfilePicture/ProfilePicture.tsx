@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -16,42 +18,55 @@ const gradients = [
   'linear-gradient(135deg, #FDD819 0%, #E80505 100%)'
 ];
 
-const getRandomGradient = () => {
+const getRandomGradient = (): string => {
   const randomIndex = Math.floor(Math.random() * gradients.length);
   return gradients[randomIndex];
 };
 
-const ProfilePicture = ({ url, name }: any) => {
-  const [isValidUrl, setIsValidUrl] = useState(true);
+const getInitials = (name: string): string => {
+  return name
+    ? name
+        .split(' ')
+        .map(word => word[0])
+        .join('')
+        .toUpperCase()
+    : '';
+};
+
+const getFirstLetter = (name: string): string => {
+  return name ? name[0].toUpperCase() : '';
+};
+
+interface ProfilePictureProps {
+  url: string;
+  name: string;
+  fontSize?: string;
+  useFirstLetterOnly?: boolean;
+}
+
+const validateImageUrl = async (url: string): Promise<boolean> => {
+  if (!url) return false;
+  try {
+    const response = await axios.get(url);
+    return response.status === 200;
+  } catch (error) {
+    return false;
+  }
+};
+
+const ProfilePicture: React.FC<ProfilePictureProps> = ({ url, name, fontSize = '25', useFirstLetterOnly = false }) => {
+  const [isValidUrl, setIsValidUrl] = useState<boolean>(true);
 
   useEffect(() => {
     const validateUrl = async () => {
-      if (!url) {
-        setIsValidUrl(false);
-        return;
-      }
-      try {
-        const response = await axios.get(url);
-        if (response.status !== 200) {
-          setIsValidUrl(false);
-        }
-      } catch (error) {
-        setIsValidUrl(false);
-      }
+      const isValid = await validateImageUrl(url);
+      setIsValidUrl(isValid);
     };
 
     validateUrl();
   }, [url]);
 
-  const getInitials = (name: any) => {
-    return name
-      ? name
-        .split(' ')
-        .map((word:any) => word[0])
-        .join('')
-        .toUpperCase()
-      : '';
-  };
+  const displayText = useFirstLetterOnly ? getFirstLetter(name) : getInitials(name);
 
   return isValidUrl && url ? (
     <img src={url} alt="Profile" style={{ width: '100%', height: '100%', borderRadius: '50%' }} />
@@ -65,11 +80,11 @@ const ProfilePicture = ({ url, name }: any) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontSize: '25px',
+        fontSize: `${fontSize}px`,
         color: 'white',
       }}
     >
-      {getInitials(name)}
+      {displayText}
     </div>
   );
 };

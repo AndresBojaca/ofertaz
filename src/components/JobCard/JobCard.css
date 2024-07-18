@@ -12,7 +12,6 @@
 }
 
 .job__card {
-    background-color: var(--color-background-secondary);
     padding: 20px 35px;
     border-radius: 5px;
     display: flex;
@@ -94,8 +93,6 @@
     margin-left: auto;
 }
 .job__card--tools .tool{
-    background-color: var(--color-background-third);
-    color: var(--color-text-primary);
     padding: 10px;
     margin: 5px 6px;
     transition: all .3s;

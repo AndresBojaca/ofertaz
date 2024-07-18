@@ -14,8 +14,9 @@ export default function NavigationEvents() {
     console.log(url)
   }, [pathname, params])
 
-  return (<div>
-    <Header />
+  return (
+    <>
 
-  </div>);
+    </>
+  );
 }

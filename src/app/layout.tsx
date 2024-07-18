@@ -11,11 +11,16 @@ const fontSans = FontSans({
   variable: "--font-sans",
 });
 
+
 export const metadata: Metadata = {
   title: "Ofertaz | Empleo de la A a la Z",
   description: "Plataforma de Empleo",
 };
 
+const user = {
+  name: JSON.stringify,
+  photoUrl: 'string'
+};
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,13 +31,15 @@ export default function RootLayout({
       <head />
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "min-h-screen bg-slate-200 dark:bg-slate-950 font-sans antialiased",
           fontSans.variable
         )}
       >
         <ClientProvider>
           <Header />
-          {children}
+          <main className="container pt-[5rem] md:pt-[5rem]">
+            {children}
+          </main>
         </ClientProvider>
       </body>
     </html>
