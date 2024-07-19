@@ -24,6 +24,7 @@ export function UserNav({ userData }: { userData: any }) {
 
   const handleLogout = () => {
     dispatch(clearSession()); // Llamar a la acción clearSession para cerrar sesión
+    router.push('/');
   };
 
   const handleNavigate = (e: any) => {
