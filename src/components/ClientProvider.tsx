@@ -1,9 +1,10 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import { Provider } from 'react-redux';
 import store from '@/store/store';
-import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeProvider } from '@/components/ThemeProvider';
+import Spinner from '@/components/ui/spinner';
 
 interface ClientProviderProps {
   children: ReactNode;
@@ -18,7 +19,9 @@ const ClientProvider = ({ children }: ClientProviderProps) => {
         enableSystem
         disableTransitionOnChange
       >
-        {children}
+        <Suspense fallback={<Spinner />}>
+          {children}
+        </Suspense>
       </ThemeProvider>
     </Provider>
   );

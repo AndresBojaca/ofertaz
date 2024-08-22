@@ -26,7 +26,7 @@ export default function Header() {
     return (
       <div className="flex flex-col gap-3 mt-8 md:mt-0 md:flex-row md:gap-0">
         {!sessionData.token && (
-          <div>
+          <div className='flex'>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="mr-2 dark:text-slate-300" variant="outline">
@@ -59,14 +59,14 @@ export default function Header() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onClick={() => null}>
-                  <Link href="/register">
+                  <Link href="/register/user">
                     <DropdownMenuItem>
                       Como Persona <User className="ml-2 h-4 w-4" />
                     </DropdownMenuItem>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => null}>
-                  <Link href="/register">
+                  <Link href="/register/company">
                     <DropdownMenuItem>
                       Como Empresa <Building className="ml-2 h-4 w-4" />
                     </DropdownMenuItem>
