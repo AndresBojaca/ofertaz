@@ -111,7 +111,7 @@ export default function NavigationEvents() {
               </div>
               <span className="text-slate-50 flex flex-col">
                 {jobOffer?.Company?.name}
-                <strong className="text-sm">{new Date(jobOffer?.date).toLocaleDateString()}</strong>
+                <strong className="text-sm">{new Date(jobOffer?.date || 0).toLocaleDateString()}</strong>
               </span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
