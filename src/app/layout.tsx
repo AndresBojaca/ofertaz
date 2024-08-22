@@ -37,7 +37,7 @@ export default function RootLayout({
       >
         <ClientProvider>
           <Header />
-          <main className="container pt-[5rem] md:pt-[5rem]">
+          <main className="container">
             {children}
           </main>
         </ClientProvider>
