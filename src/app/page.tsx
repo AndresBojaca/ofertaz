@@ -56,7 +56,7 @@ export default function Home() {
   });
 
   return (
-    <>
+    <div className="pt-20">
       <SearchCard setSearchText={setSearchText} />
       {filteredArr.map((job) =>
         <JobCard
@@ -72,6 +72,6 @@ export default function Home() {
           skills={job.skills}
         />
       )}
-    </>
+    </div>
   );
 }
