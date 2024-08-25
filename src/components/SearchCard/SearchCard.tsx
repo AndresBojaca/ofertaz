@@ -46,7 +46,7 @@ function SearchCard({ setSearchText }:any) {
               className="dark:bg-slate-700 bg-slate-200 placeholder-slate-900 dark:placeholder-slate-50"
             />
           </div>
-          <div className="clear-btn"
+          <div className="clear-btn text-cyan-400"
             onClick={() => clearFilter()}
           >
             <h1>Borrar</h1>
@@ -54,13 +54,13 @@ function SearchCard({ setSearchText }:any) {
         </div>
         <div className="tools-container">
           {tags.map((tool:any, index:any) => (
-            <div key={index} className="tool">
+            <div key={index} className="tool bg-cyan-400 text-slate-900">
               <span>{tool}</span>
               <div
-                className="close-btn"
+                className="close-btn bg-slate-200 dark:bg-slate-800"
                 onClick={() => dispatch(removeTag(tool))}
               >
-                <X className="text-white h-5 font-bold" />
+                <X className="text-slate-500 dark:text-white h-5 font-bold" />
               </div>
             </div>
           ))}

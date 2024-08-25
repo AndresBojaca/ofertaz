@@ -13,7 +13,7 @@ export default function JobCard(props: any) {
 
   return (
     <div className="job__card dark:bg-slate-900 bg-slate-50">
-      <div className="job__card--logo">
+      <div className="job__card--logo shadow-xl shadow-black/5 rounded-md dark:shadow-white/10">
         <ProfilePicture url={props.logo} name={props.company} />
       </div>
       <div className="job__card--info">
@@ -27,32 +27,32 @@ export default function JobCard(props: any) {
             )} */}
         </h1>
         <Link href={`/offers/${props.id}`}>
-          <h2 className="job__card__role--text">{props.position}</h2>
+          <h2 className="job__card__role--text text-cyan-400">{props.position}</h2>
         </Link>
-        <h3 className="job__card__features--text">
+        <div className="job__card--tools">
+          {props.role && (
+            <div className="tool bg-black/5 dark:bg-white/5 text-slate-900 dark:text-slate-50" onClick={() => dispatch(addTag(props.role))}>
+              {props.role}
+            </div>
+          )}
+          {props.level && (
+            <div className="tool bg-black/5 dark:bg-white/5 text-slate-900 dark:text-slate-50" onClick={() => dispatch(addTag(props.level))}>
+              {props.level}
+            </div>
+          )}
+          {props.skills.map((skill: any, index: any) => (
+            <div key={index} className="tool bg-black/5 dark:bg-white/5 text-slate-900 dark:text-slate-50" onClick={() => dispatch(addTag(skill))}>
+              {skill}
+            </div>
+          ))}
+        </div>
+        <h3 className="job__card__features--text text-slate-500">
           {props.date}
           <span className="dot">·</span>
           {props.contract}
           <span className="dot">·</span>
           {props.location}
         </h3>
-      </div>
-      <div className="job__card--tools">
-        {props.role && (
-          <div className="tool bg-black/5 dark:bg-white/5 text-slate-900 dark:text-slate-50" onClick={() => dispatch(addTag(props.role))}>
-            {props.role}
-          </div>
-        )}
-        {props.level && (
-          <div className="tool bg-black/5 dark:bg-white/5 text-slate-900 dark:text-slate-50" onClick={() => dispatch(addTag(props.level))}>
-            {props.level}
-          </div>
-        )}
-        {props.skills.map((skill: any, index: any) => (
-          <div key={index} className="tool bg-black/5 dark:bg-white/5 text-slate-900 dark:text-slate-50" onClick={() => dispatch(addTag(skill))}>
-            {skill}
-          </div>
-        ))}
       </div>
     </div>
   );

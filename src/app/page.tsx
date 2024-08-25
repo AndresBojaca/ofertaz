@@ -58,9 +58,10 @@ export default function Home() {
   return (
     <div className="pt-20">
       <SearchCard setSearchText={setSearchText} />
-      {filteredArr.map((job) =>
+      {filteredArr.map((job, key) =>
         <JobCard
           id = {job.id}
+          key={key}
           date={tiempoTranscurrido(job.date)}
           contract={job.contract}
           location={job.location}

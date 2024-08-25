@@ -1,15 +1,3 @@
-.job__card:nth-child(2):has(.job__card--badje-new):has(.job__card--badje-featured):before, 
-.job__card:nth-child(3):has(.job__card--badje-new):has(.job__card--badje-featured):before {
-    content: '';
-    width: 5px;
-    height: 100%;
-    left: 0;
-    top: 0;
-    position: absolute;
-    background: var(--color-primary);
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
 
 .job__card {
     padding: 20px 35px;
@@ -41,13 +29,12 @@
 }
 .job__card__company--text{
     font-size: 14px;
-    color: var(--color-text-primary);
+    font-weight: 600;
     display: flex;
     align-items: center;
 }
 .job__card__role--text{
     font-size: 18px;
-    color: var(--color-primary);
     transition: all .3s;
     font-weight: bold;
 }
@@ -57,7 +44,6 @@
 .job__card__features--text{
     font-size: 14px;
     font-weight: 300;
-    color: var(--color-text-secondary);
 }
 .job__card__features--text .dot{
     padding: 0 12px;
@@ -72,33 +58,16 @@
     gap: 5px;
 }
 
-.job__card--badje-new {
-    background-color: var(--color-midnight-blue);
-    color: var(--color-text-primary);
-    padding: 5px 8px;
-    border-radius: 50px;
-    margin: 0 10px;
-    font-size: 9px;
-    border: 1px solid var(--color-primary);
-}
-.job__card--badje-featured{
-    background-color: var(--color-primary);
-    color: var(--color-midnight-blue);
-    padding: 5px 8px;
-    border-radius: 50px;
-    font-size: 9px;
-}
 .job__card--tools{
     display: flex;
-    margin-left: auto;
+    gap: .5rem;
 }
 .job__card--tools .tool{
-    padding: 10px;
-    margin: 5px 6px;
+    padding: 5px;
     transition: all .3s;
     border-radius: 3px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 12px;
 }
 .job__card--tools .tool:hover{
     transform: scale(1.05);

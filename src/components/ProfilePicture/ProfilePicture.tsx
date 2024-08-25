@@ -69,13 +69,13 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ url, name, fontSize = '
   const displayText = useFirstLetterOnly ? getFirstLetter(name) : getInitials(name);
 
   return isValidUrl && url ? (
-    <img src={url} alt="Profile" style={{ width: '100%', height: '100%', borderRadius: '50%' }} />
+    <img src={url} alt="Profile" style={{ width: '100%', height: '100%', borderRadius: '15px' }} />
   ) : (
     <div
       style={{
         width: '100%',
         height: '100%',
-        borderRadius: '50%',
+        borderRadius: '15px',
         background: getRandomGradient(),
         display: 'flex',
         alignItems: 'center',
