@@ -4,18 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 0a0f1d, c4ff24 */
-
-:root{
-  --color-midnight-blue: #0a0f1d;
-  --color-midnight-blue-background: #070A13;
-  --light-grayish-cyan-background: #0e1527;
-  --light-grayish-cyan-filter-tablets: #eef6f6;
-  --dark-grayish-cyan: #7b8e8e;
-  --color-lime: #c4ff24;
-  --color-gray: #ffffff75;
-  --main-custom-margin: 12rem;
-}
 
 * { 
   -moz-box-sizing: border-box; 
@@ -28,7 +16,6 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--light-grayish-cyan-background);
 }
 
 @keyframes fadeInScale {

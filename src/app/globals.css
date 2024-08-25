@@ -5,12 +5,8 @@
   @layer base {
     :root {
 
-      --color-background-primary: #0a192f;
-      --color-background-secondary: #112240;
-      --color-background-third: #233554;
       --color-text-primary: #ccd6f6;
       --color-text-secondary: #8892b0;
-      --color-primary: #22d3ee;
 
       --background: 0 0% 100%;
       --foreground: 222.2 84% 4.9%;
