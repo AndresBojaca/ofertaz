@@ -1,14 +1,17 @@
 'use client';
 
 import { useState } from 'react';
+import { Loader2 } from "lucide-react"
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { setSession } from '@/store/userSlice';
+import { Separator } from '@/components/ui/separator';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
   const dispatch = useDispatch();
@@ -16,12 +19,16 @@ export default function Login() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, { email, password });
       if (response.status === 200) {
         // Dispatch to set session in Redux store and localStorage
-        dispatch(setSession(response.data.sessionUser));
-        // Redirigir al dashboard
-        router.push('/profile');
+        setTimeout(() => {
+          setLoading(false);
+          dispatch(setSession(response.data.sessionUser));
+          // Redirigir al dashboard
+          router.push('/profile');
+        }, 800);
       }
     } catch (err) {
       setError('Credenciales inválidas. Inténtalo de nuevo.');
@@ -58,12 +65,23 @@ export default function Login() {
           <div>
             <button
               type="submit"
+              disabled={loading}
               className="w-full px-4 py-2 font-medium text-white bg-cyan-400 rounded-md hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
             >
-              Iniciar Sesión
+              {loading ? <Loader2 className="inline-block w-5 h-5 ml-2 animate-spin"/> :  'Iniciar Sesión' }
             </button>
           </div>
         </form>
+        <Separator />
+        <div className="mt-4 text-center">
+          <p className="text-sm text-gray-600">¿No tienes una cuenta?</p>
+          <a
+            href="/signup/user"
+            className="text-cyan-500 hover:text-cyan-700 font-medium"
+          >
+            Regístrate
+          </a>
+        </div>
       </div>
     </div>
   );

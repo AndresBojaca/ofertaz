@@ -37,7 +37,7 @@ export function UserNav({ userData }: { userData: any }) {
     <DropdownMenu>
       <DropdownMenuTrigger>
         <div className="h-8 w-8 hover:opacity-90 transition-all hover:scale-105">
-          <ProfilePicture url="" name={userData.name} useFirstLetterOnly />
+          <ProfilePicture url="" name={userData.name} borderRadius="20" useFirstLetterOnly />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>

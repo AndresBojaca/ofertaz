@@ -107,7 +107,7 @@ export default function NavigationEvents() {
           <div className="text-left flex gap-3 flex-col">
             <div className="flex gap-3 items-center">
               <div className="h-12 w-12">
-                <ProfilePicture url={jobOffer?.Company?.logo} name={jobOffer?.Company?.name} fontSize="15" />
+                <ProfilePicture url={jobOffer?.Company?.logo} borderRadius='10' name={jobOffer?.Company?.name} fontSize="15" />
               </div>
               <span className="text-slate-50 flex flex-col">
                 {jobOffer?.Company?.name}
@@ -153,7 +153,7 @@ export default function NavigationEvents() {
               <div className="flex items-center justify-between space-x-4">
                 <div className="flex items-center space-x-4">
                   <div className="h-8 w-8">
-                    <ProfilePicture url={jobOffer?.Company?.logo} name={jobOffer?.Company?.name} fontSize="15" />
+                    <ProfilePicture url={jobOffer?.Company?.logo} borderRadius='6' name={jobOffer?.Company?.name} fontSize="15" />
                   </div>
                   <div>
                     <p className="text-sm font-medium leading-none">{jobOffer?.Company?.name} </p>

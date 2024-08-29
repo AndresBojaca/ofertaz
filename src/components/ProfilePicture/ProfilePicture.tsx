@@ -41,6 +41,7 @@ interface ProfilePictureProps {
   url: string;
   name: string;
   fontSize?: string;
+  borderRadius?: string;
   useFirstLetterOnly?: boolean;
 }
 
@@ -54,7 +55,7 @@ const validateImageUrl = async (url: string): Promise<boolean> => {
   }
 };
 
-const ProfilePicture: React.FC<ProfilePictureProps> = ({ url, name, fontSize = '25', useFirstLetterOnly = false }) => {
+const ProfilePicture: React.FC<ProfilePictureProps> = ({ url, name, fontSize = '25', borderRadius, useFirstLetterOnly = false }) => {
   const [isValidUrl, setIsValidUrl] = useState<boolean>(true);
 
   useEffect(() => {
@@ -69,13 +70,13 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ url, name, fontSize = '
   const displayText = useFirstLetterOnly ? getFirstLetter(name) : getInitials(name);
 
   return isValidUrl && url ? (
-    <img src={url} alt="Profile" style={{ width: '100%', height: '100%', borderRadius: '15px' }} />
+    <img src={url} alt="Profile" style={{ width: '100%', height: '100%', borderRadius: `${borderRadius}px` }} />
   ) : (
     <div
       style={{
         width: '100%',
         height: '100%',
-        borderRadius: '15px',
+        borderRadius: `${borderRadius}px`,
         background: getRandomGradient(),
         display: 'flex',
         alignItems: 'center',

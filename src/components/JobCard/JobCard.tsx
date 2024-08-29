@@ -13,8 +13,8 @@ export default function JobCard(props: any) {
 
   return (
     <div className="job__card dark:bg-slate-900 bg-slate-50">
-      <div className="job__card--logo shadow-xl shadow-black/5 rounded-md dark:shadow-white/10">
-        <ProfilePicture url={props.logo} name={props.company} />
+      <div className="job__card--logo shadow-xl shadow-black/5 rounded-[10px] dark:shadow-white/10">
+        <ProfilePicture url={props.logo} borderRadius='10' name={props.company} />
       </div>
       <div className="job__card--info">
         <h1 className="job__card__company--text">
