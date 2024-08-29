@@ -51,6 +51,9 @@ export default function ConfirmAccount() {
             <p className="text-center text-slate-400">Intenta nuevamente o comunícate con soporte.</p>
           </div>
         }
+        <div className="text-center">
+          <span className="text-sm text-slate-600">Tambien puedes ir al inicio, <a href="/" className="text-cyan-800">ofertaz.com</a></span>
+        </div>
       </div>
     </div>
   );

@@ -117,7 +117,7 @@ export default function NavigationEvents() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
               {jobOffer?.title}
             </h1>
-            <div className="flex flex-col text-sm gap-2">
+            <div className="flex flex-col text-sm gap-2 text-white">
               <div className="flex gap-1">
                 <MapPin size={20} />
                 {jobOffer?.location}
@@ -131,9 +131,9 @@ export default function NavigationEvents() {
               </div>
               <span className="flex gap-1"><Timer size={20} /> Respuesta de <strong>{jobOffer?.Company?.responseTime}</strong></span>
             </div>
-            <div className="flex gap-3 text-sm">
+            <div className="flex gap-3 text-sm text-white">
               {jobOffer?.perks.map(perk =>
-                <span key={perk}>{perk} | </span>
+                <span className="border-r border-white pr-3 last:border-0" key={perk}>{perk} </span>
               )}
             </div>
           </div>
@@ -165,7 +165,7 @@ export default function NavigationEvents() {
               <div>
                 <button
                   type="button"
-                  className="text-white text-center flex items-center justify-center w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                  className="text-white text-center flex items-center justify-center w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
                   onClick={handleApply}
                   disabled={hasApplied}
                 >

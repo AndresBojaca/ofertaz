@@ -52,6 +52,7 @@ const RegisterForm = ({ role }: { role: string }) => {
   const [loading, setLoading] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false); // Nuevo estado para mostrar la confirmación
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     fetchCountries().then(setCountries);
@@ -80,6 +81,12 @@ const RegisterForm = ({ role }: { role: string }) => {
           setLoading(false);
           dispatch(setSession(response.data.sessionUser));
           setShowConfirmation(true);
+
+          // Redirigir al profile
+          setTimeout(() => {
+            router.push('/profile');
+          }, 5000);
+          
         }, 800);
 
       }

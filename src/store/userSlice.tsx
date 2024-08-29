@@ -1,4 +1,3 @@
-// store/slices/userSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface User {
@@ -17,16 +16,23 @@ interface SessionState {
   isAuthenticated: boolean;
 }
 
-const initialState: SessionState = {
-  token: null,
-  user: null,
-  role: null,
-  isAuthenticated: false,
+// Leer el estado inicial desde localStorage
+const getInitialState = (): SessionState => {
+  const sessionUser = localStorage.getItem('sessionUser');
+  if (sessionUser) {
+    return JSON.parse(sessionUser);
+  }
+  return {
+    token: null,
+    user: null,
+    role: null,
+    isAuthenticated: false,
+  };
 };
 
 const sessionSlice = createSlice({
   name: 'session',
-  initialState,
+  initialState: getInitialState(),
   reducers: {
     setSession: (state, action: PayloadAction<SessionState>) => {
       state.token = action.payload.token;

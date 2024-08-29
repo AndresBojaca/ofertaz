@@ -99,3 +99,17 @@
         width: 60%;
     }
   }
+
+  .badge-new {
+    position:relative;
+}
+
+  .badge-new:before {
+    content:"\A";
+    border-style: solid;
+    border-width: 0px 10px 10px 0;
+    border-color: transparent #40126b transparent transparent;
+    position: absolute;
+    left: 2px;
+    top: 20px;
+}

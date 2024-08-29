@@ -36,14 +36,14 @@ export default function Header() {
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>
                   <Link href="/login">
-                    <DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">
                       Como Persona <User className="ml-2 h-4 w-4" />
                     </DropdownMenuItem>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="/login">
-                    <DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">
                       Como Empresa <Building className="ml-2 h-4 w-4" />
                     </DropdownMenuItem>
                   </Link>
@@ -53,21 +53,21 @@ export default function Header() {
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button className="mr-2 text-slate-900 bg-cyan-400 hover:bg-cyan-600" variant="outline">
+                <Button className="mr-2 text-white text-center flex items-center justify-center bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl hover:text-white focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm" variant="outline">
                   <LogIn className="mr-2 h-4 w-4" /> Registrarse
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onClick={() => null}>
                   <Link href="/signup/user">
-                    <DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">
                       Como Persona <User className="ml-2 h-4 w-4" />
                     </DropdownMenuItem>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => null}>
                   <Link href="/signup/company">
-                    <DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">
                       Como Empresa <Building className="ml-2 h-4 w-4" />
                     </DropdownMenuItem>
                   </Link>

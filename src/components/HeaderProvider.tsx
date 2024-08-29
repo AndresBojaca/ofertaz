@@ -8,14 +8,13 @@ import HeaderSimple from './Header/HeaderSimple';
 interface HeaderProviderType {
   children: ReactNode;
 }
-const headerPaths = ['/','confirm-account', 'forgot-password', 'reset-password', 'profile','offers', 'applications'];
+const headerPaths = ['/', 'forgot-password', 'reset-password', 'profile','offers', 'applications'];
 const simpleHeaderPaths = ['login', 'signup'];
 
 export default function HeaderProvider({ children }: HeaderProviderType) {
   const pathname = usePathname();
   const showHeader = headerPaths.includes(pathname.split('/')[1] || '/'); ;
   const showHeaderSimple = simpleHeaderPaths.includes(pathname.split('/')[1] || '/');
-  console.log(showHeaderSimple);
 
   return (
     <>
