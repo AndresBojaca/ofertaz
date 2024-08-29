@@ -1,13 +1,16 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import Lottie from 'lottie-react';
 import axios from 'axios';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
+import animationSuccessData from '@/assets/animations/success.json';
+import animationErrorData from '@/assets/animations/error.json';
+
 
 export default function ConfirmAccount() {
 
   const params = useParams();
-  const router = useRouter();
   const token = params.token;
   const [status, setStatus] = useState('loading'); // 'loading', 'success', 'error'
 
@@ -37,22 +40,18 @@ export default function ConfirmAccount() {
         {status === 'success'
           ?
           <div>
+            <Lottie animationData={animationSuccessData} className="h-40"/>
             <h2 className="text-2xl font-bold text-center">¡Cuenta confirmada exitosamente!</h2>
-            <p className="text-center">Por favor, confirma tu cuenta verificando tu correo electrónico.</p>
+            <p className="text-center text-slate-400">Por favor, confirma tu cuenta verificando tu correo electrónico.</p>
           </div>
           :
           <div>
-            <h2 className="text-2xl font-bold text-center">¡Hubo un problema!</h2>
-            <p className="text-center">Por favor, confirma tu cuenta verificando tu correo electrónico.</p>
+            <Lottie animationData={animationErrorData} className="h-40"/>
+            <h2 className="text-2xl font-bold text-center">¡Ocurrió un problema!</h2>
+            <p className="text-center text-slate-400">Intenta nuevamente o comunícate con soporte.</p>
           </div>
         }
       </div>
     </div>
-    // <div className="pt-40">
-    //   <p>El enlace de confirmación es inválido o ha expirado.</p>
-    //   <button onClick={() => router.push('/resend-confirmation')}>
-    //     Solicitar un nuevo enlace de confirmación
-    //   </button>
-    // </div>
   );
 }
