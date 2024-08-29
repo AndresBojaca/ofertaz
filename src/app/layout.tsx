@@ -4,6 +4,7 @@ import Header from "@/components/Header/Header";
 import ClientProvider from "@/components/ClientProvider";
 import { cn } from "@/lib/utils";
 import "./globals.css";
+import HeaderProvider from "@/components/HeaderProvider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -36,10 +37,11 @@ export default function RootLayout({
         )}
       >
         <ClientProvider>
-          <Header />
-          <main className="container">
-            {children}
-          </main>
+          <HeaderProvider>
+            <main className="container">
+              {children}
+            </main>
+          </HeaderProvider>
         </ClientProvider>
       </body>
     </html>

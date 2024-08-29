@@ -53,20 +53,20 @@ export default function Header() {
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button className="mr-2 text-white bg-cyan-400" variant="outline">
+                <Button className="mr-2 text-slate-900 bg-cyan-400 hover:bg-cyan-600" variant="outline">
                   <LogIn className="mr-2 h-4 w-4" /> Registrarse
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onClick={() => null}>
-                  <Link href="/register/user">
+                  <Link href="/signup/user">
                     <DropdownMenuItem>
                       Como Persona <User className="ml-2 h-4 w-4" />
                     </DropdownMenuItem>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => null}>
-                  <Link href="/register/company">
+                  <Link href="/signup/company">
                     <DropdownMenuItem>
                       Como Empresa <Building className="ml-2 h-4 w-4" />
                     </DropdownMenuItem>
@@ -97,41 +97,43 @@ export default function Header() {
   };
 
   return (
-    <nav className="shadow-md py-5 fixed w-full top-0 z-10 bg-slate-50 dark:bg-slate-900/80 backdrop-blur-lg">
-      <div className="container mx-auto px-4 flex justify-between items-center">
-        <div className="text-2xl font-bold">
-          <Link href="/">
-            <div className="header__logo">
-              <span>
-                <span className="text-blue-950 dark:text-slate-300">Ofert</span>
-                <span className="text-cyan-400">a</span>
-                <span className="text-cyan-400 opacity-50">z</span>
-              </span>
-            </div>
-          </Link>
-        </div>
+    <div className="relative mb-10 h-20">
+      <nav className="shadow-md py-5 fixed w-full top-0 z-10 bg-slate-50 dark:bg-slate-900/80 backdrop-blur-lg">
+        <div className="container mx-auto px-4 flex justify-between items-center">
+          <div className="text-2xl font-bold">
+            <Link href="/">
+              <div className="header__logo">
+                <span>
+                  <span className="text-blue-950 dark:text-slate-300">Ofert</span>
+                  <span className="text-cyan-400">a</span>
+                  <span className="text-cyan-400 opacity-50">z</span>
+                </span>
+              </div>
+            </Link>
+          </div>
 
-        {/* Botones y elementos de navegación */}
-        <div className="hidden md:flex space-x-4 justify-center align-middle">
-          <Buttons />
-        </div>
+          {/* Botones y elementos de navegación */}
+          <div className="hidden md:flex space-x-4 justify-center align-middle">
+            <Buttons />
+          </div>
 
-        {/* Menú desplegable en dispositivos móviles */}
-        <div className="md:hidden">
-          <button onClick={() => setIsOpen(!isOpen)} className="focus:outline-none">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"}></path>
-            </svg>
-          </button>
-        </div>
+          {/* Menú desplegable en dispositivos móviles */}
+          <div className="md:hidden">
+            <button onClick={() => setIsOpen(!isOpen)} className="focus:outline-none">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"}></path>
+              </svg>
+            </button>
+          </div>
 
-        {/* Mostrar menú desplegable en dispositivos móviles si está abierto */}
-      </div>
+          {/* Mostrar menú desplegable en dispositivos móviles si está abierto */}
+        </div>
         {isOpen && (
           <div className="md:hidden px-4">
             <Buttons />
           </div>
         )}
-    </nav>
+      </nav>
+    </div>
   );
 }

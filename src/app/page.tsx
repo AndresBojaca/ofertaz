@@ -56,7 +56,7 @@ export default function Home() {
   });
 
   return (
-    <div className="pt-20">
+    <div>
       <SearchCard setSearchText={setSearchText} />
       {filteredArr.map((job, key) =>
         <JobCard
@@ -76,3 +76,5 @@ export default function Home() {
     </div>
   );
 }
+
+Home.showHeader = false;
