@@ -19,9 +19,7 @@ const ClientProvider = ({ children }: ClientProviderProps) => {
         enableSystem
         disableTransitionOnChange
       >
-        <Suspense fallback={<Spinner />}>
-          {children}
-        </Suspense>
+        {children}
       </ThemeProvider>
     </Provider>
   );

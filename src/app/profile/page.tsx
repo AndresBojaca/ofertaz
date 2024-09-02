@@ -27,7 +27,7 @@ const SettingsProfilePage = () => {
           <ExclamationTriangleIcon className="h-4 w-4" />
           <AlertTitle>Confirma tu cuenta para disfrutar de <strong>Ofertaz</strong></AlertTitle>
           <AlertDescription className="opacity-70">
-            Hemos enviado un correo de confirmación a tu dirección de correo electrónico. Por favor, sigue las instrucciones para confirmar tu cuenta.
+            <small>Hemos enviado un correo de confirmación a tu dirección de correo electrónico. Por favor, sigue las instrucciones para confirmar tu cuenta.</small>
           </AlertDescription>
         </Alert>
       </div>

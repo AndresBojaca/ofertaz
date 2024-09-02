@@ -8,7 +8,7 @@ import HeaderSimple from './Header/HeaderSimple';
 interface HeaderProviderType {
   children: ReactNode;
 }
-const headerPaths = ['/', 'forgot-password', 'reset-password', 'profile','offers', 'applications'];
+const headerPaths = ['/', 'forgot-password', 'reset-password', 'profile','offers', 'applications', 'jobs'];
 const simpleHeaderPaths = ['login', 'signup'];
 
 export default function HeaderProvider({ children }: HeaderProviderType) {

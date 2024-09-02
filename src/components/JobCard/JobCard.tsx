@@ -7,30 +7,46 @@ import "./JobCard.css";
 import ProfilePicture from '../ProfilePicture/ProfilePicture';
 import Link from "next/link";
 
-export default function JobCard(props: any) {
+type JobCard = {
+  id: number;
+  date: string;
+  contract: string;
+  location: string;
+  Company: {
+    name: string
+    logo: string
+  }
+  role: string;
+  position: string;
+  level: string;
+  skills: string[];
+}
+
+
+export default function JobCard(props: JobCard) {
 
   const dispatch = useDispatch();
 
   return (
     <div className="job__card dark:bg-slate-900 bg-slate-50 relative">
-     
-    { 
-    // Aquí se añade un badge si la oferta es nueva 
-    props.date.includes('horas') || props.date.includes('dia') || props.date.includes('días')  ? 
-      <div className="flex items-center space-x-2 absolute -left-3 top-3">
-        <span className="bg-purple-600 text-white text-xs font-semibold px-2.5 py-0.5 rounded badge-new">
-          Nuevo
-        </span>
-      </div> 
-      : null
+
+      {
+        // Aquí se añade un badge si la oferta es nueva 
+        props.date.includes('horas') || props.date.includes('dia') || props.date.includes('días') ?
+          <div className="flex items-center space-x-2 absolute -left-3 top-3">
+            <span className="bg-purple-600 text-white text-xs font-semibold px-2.5 py-0.5 rounded badge-new">
+              Nuevo
+            </span>
+          </div>
+          : null
       }
 
       <div className="job__card--logo shadow-xl shadow-black/5 rounded-[10px] dark:shadow-white/10">
-        <ProfilePicture url={props.logo} borderRadius='10' name={props.company} />
+        <ProfilePicture url={props.Company.logo} borderRadius='10' name={props.Company.name} />
       </div>
       <div className="job__card--info">
         <h1 className="job__card__company--text">
-          {props.company}
+          {props.Company.name}
         </h1>
         <Link href={`/offers/${props.id}`}>
           <h2 className="job__card__role--text text-cyan-400">{props.position}</h2>
@@ -61,5 +77,5 @@ export default function JobCard(props: any) {
         </h3>
       </div>
     </div>
-  );
+  )
 }

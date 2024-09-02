@@ -1,12 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: any = [];
+// Leer el estado inicial desde localStorage
+const getInitialState = (): Array<any> => {
+  if (typeof window !== 'undefined') {  // Verificar si está en el navegador
+    const sessionUser = localStorage.getItem('tags');
+    if (sessionUser) {
+      return JSON.parse(sessionUser);
+    }
+  }
+  return [];
+};
+
 
 export const tagSlice = createSlice({
   name: "tags",
-  initialState,
+  initialState: getInitialState(),
   reducers: {
-    addTag: (state, action) => {
+    addTag: (state, action: PayloadAction<string>) => {
       if (!state.includes(action.payload)) {
         const array = localStorage.getItem("tags");
         let tags = [];
@@ -24,7 +34,7 @@ export const tagSlice = createSlice({
         state.push(action.payload);
       }
     },
-    removeTag: (state, action) => {
+    removeTag: (state, action: PayloadAction<string>) => {
       const array = localStorage.getItem("tags");
       let tags = [];
       if (array) {

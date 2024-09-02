@@ -32,50 +32,53 @@ export function UserNav({ userData }: { userData: any }) {
     router.push(`/profile`);
   };
 
-
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>
-        <div className="h-8 w-8 hover:opacity-90 transition-all hover:scale-105">
-          <ProfilePicture url="" name={userData.name} borderRadius="20" useFirstLetterOnly />
-        </div>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end" forceMount>
-        <DropdownMenuLabel className="font-normal">
-          <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none truncate ...">{userData.name}</p>
-            <p className="text-xs leading-none text-muted-foreground">
-              {userData.email}
-            </p>
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <div className="h-9 w-9 hover:opacity-90 transition-all hover:scale-105">
+            <ProfilePicture url="" name={userData.name} borderRadius="20" useFirstLetterOnly />
           </div>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <Link href="/profile">
-            <DropdownMenuItem>
-              Perfil
-            </DropdownMenuItem>
-          </Link>
-          <Link href="/profile/applications">
-            <DropdownMenuItem>
-              Mis Ofertas
-              <span className="relative flex h-2 w-2 -top-1">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
-              </span>
-            </DropdownMenuItem>
-          </Link>
-          <Link href="/profile/account">
-            <DropdownMenuItem>
-              Configuración
-            </DropdownMenuItem>
-          </Link>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleLogout} className="text-red-500">
-          Cerrar Sesión
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56" align="end" forceMount>
+          <DropdownMenuLabel className="font-normal">
+            <div className="flex flex-col space-y-1">
+              <p className="text-sm font-medium leading-none truncate ...">{userData.name}</p>
+              <p className="text-xs leading-none text-muted-foreground">
+                {userData.email}
+              </p>
+            </div>
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup>
+            <Link href="/profile">
+              <DropdownMenuItem>
+                Perfil
+              </DropdownMenuItem>
+            </Link>
+            <Link href="/profile/applications">
+              <DropdownMenuItem>
+                Mis Ofertas
+                <span className="relative flex h-2 w-2 -top-1">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+                </span>
+              </DropdownMenuItem>
+            </Link>
+            <Link href="/profile/account">
+              <DropdownMenuItem>
+                Configuración
+              </DropdownMenuItem>
+            </Link>
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={handleLogout} className="text-red-500">
+            Cerrar Sesión
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   );
 }
+
+

@@ -1,72 +1,72 @@
-import React, { useEffect, useState } from "react";
-import closelogo from "../../../public/icon-remove.svg";
-import { X } from "lucide-react"
+"use client";
 
+import React, { useEffect, useState } from "react";
+import { X } from "lucide-react";
+import { useDebounce } from "@uidotdev/usehooks";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  removeallTags,
-  removeTag,
-  addTag,
-} from "@/store/TagsSlice";
+import { useRouter } from "next/navigation";
+import { removeallTags, removeTag, addTag } from "@/store/TagsSlice";
 import "./SearchCard.css";
 
-function SearchCard({ setSearchText }:any) {
-  const tags = useSelector((state:any) => state.tags);
-  const tagsStorage:any = localStorage.getItem("tags");
+function SearchCard() {
+  const router = useRouter();
+  // Tiempo de espera para el debounce
+  const DEBOUNCE_TIME = 500;
+  const tags = useSelector((state: any) => state.tags);
+  // Estado para verificar si el componente se montó
+  const [mounted, setMounted] = useState(false);
   const dispatch = useDispatch();
-  const [inputValue, setInputValue] = useState("");
+  const [search, setSearch] = useState<string>("");
+
+  // Debounce para el input
+  const debouncedSearch = useDebounce(search, DEBOUNCE_TIME);
 
   useEffect(() => {
-    if (JSON.parse(tagsStorage)) {
-      // Si encontró tags en el storage cambia el estado
-      JSON.parse(tagsStorage)?.map((tag:any) => dispatch(addTag(tag)));
+    // Usamos useEffect para cambiar el estado de 'mounted' solo en el cliente
+    setMounted(true);
+    // Si hay tags en el localStorage, los añadimos al store
+    if (tags.length === 0) {
+      tags.map((tag: any) => dispatch(addTag(tag)));
     }
-  }, [dispatch, tagsStorage]);
+  }, [dispatch, tags]);
 
-  const handleInputChange = (e:any) => {
-    setInputValue(e.target.value);
-    setSearchText(e.target.value);
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
+  };
+
+  const handleInputSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Evita que el formulario se envíe si existe un form envolviendo el input
+      router.push(`/jobs/?q=${debouncedSearch}`); // Navega a la página con el parámetro de búsqueda
+    }
   };
 
   const clearFilter = () => {
-    setInputValue('');
-    setSearchText('');
+    setSearch("");
     dispatch(removeallTags());
-  }
+  };
+
+  if (!mounted) return null;
 
   return (
-    <div className="w-full">
-      <div className="search__card dark:bg-slate-900 bg-slate-50">
-        <div className="search__input--container">
-          <div className="search__input">
-            <input
-              placeholder="Buscar por Tecnología, Lenguaje, Framework, Locación etc..."
-              value={inputValue}
-              onChange={handleInputChange}
-              className="dark:bg-slate-700 bg-slate-200 placeholder-slate-900 dark:placeholder-slate-50"
-            />
-          </div>
-          <div className="clear-btn text-cyan-400"
-            onClick={() => clearFilter()}
-          >
-            <h1>Borrar</h1>
-          </div>
+    <>
+      <div className="flex relative">
+        <div className="search__input">
+          <input
+            placeholder="Buscar por Tecnología, Lenguaje, Framework, Locación etc..."
+            value={search}
+            onChange={handleInputChange}
+            onKeyDown={handleInputSearch}
+            className="dark:bg-slate-700 bg-slate-200 dark:text-white text-slate-900 placeholder-slate-900 dark:placeholder-slate-300"
+          />
         </div>
-        <div className="tools-container">
-          {tags.map((tool:any, index:any) => (
-            <div key={index} className="tool bg-cyan-400 text-slate-900">
-              <span>{tool}</span>
-              <div
-                className="close-btn bg-slate-200 dark:bg-slate-800"
-                onClick={() => dispatch(removeTag(tool))}
-              >
-                <X className="text-slate-500 dark:text-white h-5 font-bold" />
-              </div>
-            </div>
-          ))}
+        <div className="clear-btn text-cyan-400" onClick={() => clearFilter()}>
+          {search.length > 0 && (
+            <X className="h-5 font-bold dark:text-white text-slate-900 absolute cursor-pointer right-2" />
+          )}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

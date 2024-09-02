@@ -1,15 +1,13 @@
-'use client';
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { LogIn, User, Building, LogOut } from 'lucide-react';
+import { LogIn, User, Building } from 'lucide-react';
 import { ThemeSwitcher } from '../ThemeSwitcher/ThemeSwitcher';
 import { Button } from '../ui/button';
-import ProfilePicture from '../ProfilePicture/ProfilePicture';
 import { UserNav } from "@/components/UserNav/UserNav";
 import './Header.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
+import SearchCard from '../SearchCard/SearchCard';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,14 +17,31 @@ import {
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [mounted, setMounted] = useState(false); // Estado para verificar si el componente se montó
   const sessionData = useSelector((state: RootState) => state.session);
 
+  // Usamos useEffect para cambiar el estado de 'mounted' solo en el cliente
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const Buttons = () => {
+    // No renderiza nada en el servidor
+    if (!mounted) return null;
+
     return (
-      <div className="flex flex-col gap-3 mt-8 md:mt-0 md:flex-row md:gap-0">
-        {!sessionData.token && (
-          <div className='flex'>
+      <div className="flex flex-col gap-3 md:mt-0 md:flex-row md:gap-0">
+        {sessionData.isAuthenticated ? (
+          <div className="mx-auto flex w-full max-w-lg items-center justify-center">
+            <div className="relative z-10 flex w-full cursor-pointer items-center overflow-hidden rounded-full border dark:border-slate-800 border-slate-300 p-[1.5px]">
+              <div className="animate-rotate absolute inset-0 h-full w-full rounded-full bg-[conic-gradient(#0ea5e9_20deg,transparent_120deg)]"></div>
+              <div className="relative z-20 flex w-full rounded-full dark:bg-slate-900 bg-slate-100 p-1">
+                <UserNav userData={sessionData.user} />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="mr-2 dark:text-slate-300" variant="outline">
@@ -77,20 +92,7 @@ export default function Header() {
 
             {/* Componente de cambio de tema */}
             <ThemeSwitcher />
-          </div>
-        )}
-
-        {sessionData.token && (
-          <div className="">
-            <div className="mx-auto flex w-full max-w-lg items-center justify-center">
-              <div className="relative z-10 flex w-full cursor-pointer items-center overflow-hidden rounded-full border dark:border-slate-800 border-slate-300 p-[1.5px]">
-                <div className="animate-rotate absolute inset-0 h-full w-full rounded-full bg-[conic-gradient(#0ea5e9_20deg,transparent_120deg)]"></div>
-                <div className="relative z-20 flex w-full rounded-full dark:bg-slate-900 bg-slate-100 p-2">
-                  <UserNav userData={sessionData.user} />
-                </div>
-              </div>
-            </div>
-          </div>
+          </>
         )}
       </div>
     );
@@ -100,7 +102,7 @@ export default function Header() {
     <div className="relative mb-10 h-20">
       <nav className="shadow-md py-5 fixed w-full top-0 z-10 bg-slate-50 dark:bg-slate-900/80 backdrop-blur-lg">
         <div className="container mx-auto px-4 flex justify-between items-center">
-          <div className="text-2xl font-bold">
+          <div className="text-2xl font-bold flex align-middle justify-center gap-4">
             <Link href="/">
               <div className="header__logo">
                 <span>
@@ -110,6 +112,8 @@ export default function Header() {
                 </span>
               </div>
             </Link>
+            {/* Componente de búsqueda */}
+            <SearchCard />
           </div>
 
           {/* Botones y elementos de navegación */}
@@ -129,7 +133,7 @@ export default function Header() {
           {/* Mostrar menú desplegable en dispositivos móviles si está abierto */}
         </div>
         {isOpen && (
-          <div className="md:hidden px-4">
+          <div className="md:hidden px-4 bg-black/10 py-5 mt-4 -mb-5">
             <Buttons />
           </div>
         )}
