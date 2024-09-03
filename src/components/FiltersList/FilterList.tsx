@@ -1,11 +1,9 @@
 "use client";
 
-import * as React from "react";
-import { removeallTags, removeTag } from "@/store/TagsSlice";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
-import { Trash2 } from "lucide-react";
-
+import { Trash2, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -15,90 +13,105 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDown } from "lucide-react";
+import { addFilter, removeAllFilters } from "@/store/filterSlice";
+import { FiltersState } from "@/store/types";
 
 type Checked = DropdownMenuCheckboxItemProps["checked"];
 
 export function FiltersList() {
-  // Opciones de los diferentes filtros
+  const dispatch = useDispatch(); // Hook para usar dispatch de Redux
+  const filters = useSelector((state: { filters: FiltersState }) => state.filters); // Obtén el estado de los filtros del store
+
   const DATE_OF_PUBLICATION_OPTIONS = ["Hoy", "Ayer", "Última Semana", "Último Mes"];
   const EXPERIENCE_LEVEL_OPTIONS = ["Junior", "Semi-Senior", "Senior"];
   const COMPANY_OPTIONS = ["Google", "Facebook", "Amazon", "Netflix", "Apple"];
-  const REMOTE_OPTIONS = ["Remoto", "Presencial", "Híbrido"];
+  const LOCATION_OPTIONS = ["Remoto", "Madrid, España", "Ciudad de México, México"];
+  const SKILLS_OPTIONS = ["JavaScript", "Node.js", "React", "MySQL"];
 
-  const dispatch = useDispatch();
-  const tags = useSelector((state: any) => state.tags); // Obtener los tags del store
-
-  // Estados independientes para cada filtro
-  const [checkedDateItems, setCheckedDateItems] = React.useState<Record<string, Checked>>(
+  const [checkedDateItems, setCheckedDateItems] = useState<Record<string, Checked>>(
     DATE_OF_PUBLICATION_OPTIONS.reduce((acc, option) => ({ ...acc, [option]: false }), {})
   );
 
-  const [checkedExperienceItems, setCheckedExperienceItems] = React.useState<Record<string, Checked>>(
+  const [checkedExperienceItems, setCheckedExperienceItems] = useState<Record<string, Checked>>(
     EXPERIENCE_LEVEL_OPTIONS.reduce((acc, option) => ({ ...acc, [option]: false }), {})
   );
 
-  const [checkedCompanyItems, setCheckedCompanyItems] = React.useState<Record<string, Checked>>(
+  const [checkedCompanyItems, setCheckedCompanyItems] = useState<Record<string, Checked>>(
     COMPANY_OPTIONS.reduce((acc, option) => ({ ...acc, [option]: false }), {})
   );
 
-  const [checkedRemoteItems, setCheckedRemoteItems] = React.useState<Record<string, Checked>>(
-    REMOTE_OPTIONS.reduce((acc, option) => ({ ...acc, [option]: false }), {})
+  const [checkedLocationItems, setCheckedLocationItems] = useState<Record<string, Checked>>(
+    LOCATION_OPTIONS.reduce((acc, option) => ({ ...acc, [option]: false }), {})
   );
 
-  const [checkedTagsItems, setCheckedTagsItems] = React.useState<Record<string, Checked>>({});
+  const [checkedSkillsItems, setCheckedSkillsItems] = useState<Record<string, Checked>>(
+    SKILLS_OPTIONS.reduce((acc, option) => ({ ...acc, [option]: false }), {})
+  );
 
-  // useEffect para sincronizar el estado local de tags con el estado del store
-  React.useEffect(() => {
-    // Crear un objeto con el estado checked basado en los tags del store
-    const updatedCheckedTagsItems = tags.reduce((acc: Record<string, Checked>, tag: string) => {
-      acc[tag] = true; // Marcar como true si el tag está en el store
-      return acc;
-    }, {});
 
-    // Actualizar el estado local
-    setCheckedTagsItems(updatedCheckedTagsItems);
-  }, [tags]); // Ejecutar cuando cambie 'tags' en el store
+  useEffect(() => {
+    // Sincroniza el estado local con el estado del store de Redux
+    setCheckedDateItems((prevState) => ({
+      ...prevState,
+      ...DATE_OF_PUBLICATION_OPTIONS.reduce((acc, option) => ({ ...acc, [option]: filters.date.includes(option) }), {}),
+    }));
 
-  // Manejadores de cambio de estado para cada filtro
+    setCheckedExperienceItems((prevState) => ({
+      ...prevState,
+      ...EXPERIENCE_LEVEL_OPTIONS.reduce((acc, option) => ({ ...acc, [option]: filters.level.includes(option) }), {}),
+    }));
+
+    setCheckedCompanyItems((prevState) => ({
+      ...prevState,
+      ...COMPANY_OPTIONS.reduce((acc, option) => ({ ...acc, [option]: filters.company.includes(option) }), {}),
+    }));
+
+    setCheckedLocationItems((prevState) => ({
+      ...prevState,
+      ...LOCATION_OPTIONS.reduce((acc, option) => ({ ...acc, [option]: filters.location.includes(option) }), {}),
+    }));
+
+    setCheckedSkillsItems((prevState) => ({
+      ...prevState,
+      ...SKILLS_OPTIONS.reduce((acc, option) => ({ ...acc, [option]: filters.skills.includes(option) }), {}),
+    }));
+  }, [filters]); // Dependencia del estado del store de Redux
+
   const handleCheckedChange = (
-    setItems: React.Dispatch<React.SetStateAction<Record<string, Checked>>>
+    setItems: React.Dispatch<React.SetStateAction<Record<string, Checked>>>,
+    filterType: keyof FiltersState
   ) => (item: string, checked: Checked) => {
     setItems((prevState) => ({
       ...prevState,
       [item]: checked,
     }));
+    dispatch(addFilter({ filterType, value: item }));
   };
 
-  const handleCheckedChangeTag = (
-    setItems: React.Dispatch<React.SetStateAction<Record<string, Checked>>>
-  ) => (item: string, checked: Checked) => {
-    setItems((prevState) => ({
-      ...prevState,
-      [item]: checked,
-    }));
-    // Remover el tag del store si el item no está checked
-    if (!checked) {
-      dispatch(removeTag(item)); // Llamada a la acción de Redux
-    }
-  };
-
-  // Obtener texto seleccionado para mostrar junto al botón
   const getSelectedText = (items: Record<string, Checked>) => {
     const selectedItems = Object.keys(items).filter((key) => items[key]);
-    return selectedItems.length > 0 ? <div>:<span className="bg-cyan-400 ml-2 text-white px-2 py-0.5 rounded-full text-xs">{selectedItems.join(", ")}</span></div> : "";
+    return selectedItems.length > 0 ? (
+      <div>
+        :<span className="bg-cyan-400 ml-2 text-white px-2 py-0.5 rounded-full text-sm">{selectedItems.join(", ")}</span>
+      </div>
+    ) : (
+      ""
+    );
   };
 
-  const handleRemoveAllTags = () => { 
-    dispatch(removeallTags()); // Llamada a la acción de Redux
-    setCheckedTagsItems({}); // Limpiar el estado local
-  }
+  const handleRemoveAllFilters = () => {
+    dispatch(removeAllFilters());
+    setCheckedDateItems(DATE_OF_PUBLICATION_OPTIONS.reduce((acc, option) => ({ ...acc, [option]: false }), {}));
+    setCheckedExperienceItems(EXPERIENCE_LEVEL_OPTIONS.reduce((acc, option) => ({ ...acc, [option]: false }), {}));
+    setCheckedCompanyItems(COMPANY_OPTIONS.reduce((acc, option) => ({ ...acc, [option]: false }), {}));
+    setCheckedLocationItems(LOCATION_OPTIONS.reduce((acc, option) => ({ ...acc, [option]: false }), {}));
+  };
 
   return (
     <div className="flex gap-4">
       {/* Filtro de Fecha de Publicación */}
       <DropdownMenu>
-        <DropdownMenuTrigger asChild className="text-slate-900 dark:text-slate-50 border-0 font-thin text-xs shadow-md">
+        <DropdownMenuTrigger asChild className="text-slate-900 dark:text-slate-50 border-0 font-thin text-sm shadow-md">
           <Button variant="outline">
             Fecha de Publicación {getSelectedText(checkedDateItems)}
             <ChevronDown className="w-3 h-3 ml-2" />
@@ -109,10 +122,8 @@ export function FiltersList() {
             <DropdownMenuCheckboxItem
               className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800"
               key={item}
-              checked={checkedDateItems[item]} // El estado correspondiente a esta opción
-              onCheckedChange={(checked) =>
-                handleCheckedChange(setCheckedDateItems)(item, checked)
-              } // Manejador de cambio
+              checked={checkedDateItems[item]}
+              onCheckedChange={(checked) => handleCheckedChange(setCheckedDateItems, "date")(item, checked)}
             >
               <DropdownMenuLabel>{item}</DropdownMenuLabel>
             </DropdownMenuCheckboxItem>
@@ -122,7 +133,7 @@ export function FiltersList() {
 
       {/* Filtro de Nivel de Experiencia */}
       <DropdownMenu>
-        <DropdownMenuTrigger asChild className="text-slate-900 dark:text-slate-50 border-0 font-thin text-xs shadow-md">
+        <DropdownMenuTrigger asChild className="text-slate-900 dark:text-slate-50 border-0 font-thin text-sm shadow-md">
           <Button variant="outline">
             Nivel de Experiencia {getSelectedText(checkedExperienceItems)}
             <ChevronDown className="w-3 h-3 ml-2" />
@@ -134,9 +145,7 @@ export function FiltersList() {
               className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800"
               key={item}
               checked={checkedExperienceItems[item]}
-              onCheckedChange={(checked) =>
-                handleCheckedChange(setCheckedExperienceItems)(item, checked)
-              }
+              onCheckedChange={(checked) => handleCheckedChange(setCheckedExperienceItems, "level")(item, checked)}
             >
               <DropdownMenuLabel>{item}</DropdownMenuLabel>
             </DropdownMenuCheckboxItem>
@@ -146,7 +155,7 @@ export function FiltersList() {
 
       {/* Filtro de Empresa */}
       <DropdownMenu>
-        <DropdownMenuTrigger asChild className="text-slate-900 dark:text-slate-50 border-0 font-thin text-xs shadow-md">
+        <DropdownMenuTrigger asChild className="text-slate-900 dark:text-slate-50 border-0 font-thin text-sm shadow-md">
           <Button variant="outline">
             Empresa {getSelectedText(checkedCompanyItems)}
             <ChevronDown className="w-3 h-3 ml-2" />
@@ -158,9 +167,7 @@ export function FiltersList() {
               className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800"
               key={item}
               checked={checkedCompanyItems[item]}
-              onCheckedChange={(checked) =>
-                handleCheckedChange(setCheckedCompanyItems)(item, checked)
-              }
+              onCheckedChange={(checked) => handleCheckedChange(setCheckedCompanyItems, "company")(item, checked)}
             >
               <DropdownMenuLabel>{item}</DropdownMenuLabel>
             </DropdownMenuCheckboxItem>
@@ -168,23 +175,21 @@ export function FiltersList() {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* Filtro de Remoto */}
+      {/* Filtro de Locacion */}
       <DropdownMenu>
-        <DropdownMenuTrigger asChild className="text-slate-900 dark:text-slate-50 border-0 font-thin text-xs shadow-md">
+        <DropdownMenuTrigger asChild className="text-slate-900 dark:text-slate-50 border-0 font-thin text-sm shadow-md">
           <Button variant="outline">
-            Remoto {getSelectedText(checkedRemoteItems)}
+            Locación {getSelectedText(checkedLocationItems)}
             <ChevronDown className="w-3 h-3 ml-2" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
-          {REMOTE_OPTIONS.map((item) => (
+          {LOCATION_OPTIONS.map((item) => (
             <DropdownMenuCheckboxItem
               className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800"
               key={item}
-              checked={checkedRemoteItems[item]}
-              onCheckedChange={(checked) =>
-                handleCheckedChange(setCheckedRemoteItems)(item, checked)
-              }
+              checked={checkedLocationItems[item]}
+              onCheckedChange={(checked) => handleCheckedChange(setCheckedLocationItems, "location")(item, checked)}
             >
               <DropdownMenuLabel>{item}</DropdownMenuLabel>
             </DropdownMenuCheckboxItem>
@@ -192,34 +197,32 @@ export function FiltersList() {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* Tags */}
-      {tags.length > 0 && (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild className="text-slate-900 dark:text-slate-50 border-0 font-thin text-xs shadow-md">
-            <Button variant="outline">
-              Etiquetas {tags.length > 0 && <span className="bg-cyan-400 ml-2 text-white px-2 py-0.5 rounded-full text-xs">{tags.join(", ")}</span>}
-              <ChevronDown className="w-3 h-3 ml-2" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56">
-            {tags.map((item: any) => (
-              <DropdownMenuCheckboxItem
-                className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800"
-                key={item}
-                checked={checkedTagsItems[item] || false} // Utilizar el estado local sincronizado con el store
-                onCheckedChange={(checked) =>
-                  handleCheckedChangeTag(setCheckedTagsItems)(item, checked)
-                }
-              >
-                <DropdownMenuLabel>{item}</DropdownMenuLabel>
-              </DropdownMenuCheckboxItem>
-            ))}
+      {/* Filtro de Skills */}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild className="text-slate-900 dark:text-slate-50 border-0 font-thin text-sm shadow-md">
+          <Button variant="outline">
+            Etiquetas {getSelectedText(checkedSkillsItems)}
+            <ChevronDown className="w-3 h-3 ml-2" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56">
+          {SKILLS_OPTIONS.map((item) => (
+            <DropdownMenuCheckboxItem
+              className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800"
+              key={item}
+              checked={checkedSkillsItems[item]}
+              onCheckedChange={(checked) => handleCheckedChange(setCheckedSkillsItems, "skills")(item, checked)}
+            >
+              <DropdownMenuLabel>{item}</DropdownMenuLabel>
+            </DropdownMenuCheckboxItem>
+          ))}
           <DropdownMenuSeparator />
-          <DropdownMenuLabel className="hover:bg-slate-100 dark:hover:bg-slate-800 rounded-sm"><div onClick={handleRemoveAllTags} className="text-xs align-middle justify-center flex gap-2 text-slate-900 cursor-pointer dark:text-slate-50">Quitar Todas <Trash2 className="text-red-500 w-4 h-4" /></div></DropdownMenuLabel>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
-      }
+        </DropdownMenuContent>
+      </DropdownMenu>
+      {/* Botón para quitar todas las etiquetas */}
+      <Button onClick={handleRemoveAllFilters} variant="default" className="text-sm dark:text-slate-400 text-slate-800 flex gap-2 hover:bg-transparent">
+        Restablecer <Trash2 className="text-red-500 w-4 h-4" />
+      </Button>
     </div>
   );
 }

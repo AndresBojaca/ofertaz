@@ -5,14 +5,14 @@ import { X } from "lucide-react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import { removeallTags, removeTag, addTag } from "@/store/TagsSlice";
+import { addFilter, removeFilter, removeAllFilters } from "@/store/filterSlice";
 import "./SearchCard.css";
 
 function SearchCard() {
   const router = useRouter();
   // Tiempo de espera para el debounce
   const DEBOUNCE_TIME = 500;
-  const tags = useSelector((state: any) => state.tags);
+  const filters = useSelector((state: any) => state.filters);
   // Estado para verificar si el componente se montó
   const [mounted, setMounted] = useState(false);
   const dispatch = useDispatch();
@@ -25,10 +25,10 @@ function SearchCard() {
     // Usamos useEffect para cambiar el estado de 'mounted' solo en el cliente
     setMounted(true);
     // Si hay tags en el localStorage, los añadimos al store
-    if (tags.length === 0) {
-      tags.map((tag: any) => dispatch(addTag(tag)));
+    if (filters.length === 0) {
+      filters.map((tag: any) => dispatch(addFilter(tag)));
     }
-  }, [dispatch, tags]);
+  }, [dispatch, filters]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -43,7 +43,7 @@ function SearchCard() {
 
   const clearFilter = () => {
     setSearch("");
-    dispatch(removeallTags());
+    dispatch(removeAllFilters());
   };
 
   if (!mounted) return null;

@@ -2,10 +2,11 @@
 'use client';
 
 import { useDispatch } from 'react-redux'
-import { addTag } from '@/store//TagsSlice'
+import { addFilter } from '@/store/filterSlice'
 import "./JobCard.css";
 import ProfilePicture from '../ProfilePicture/ProfilePicture';
 import Link from "next/link";
+import { Wifi, MapPin } from 'lucide-react';
 
 type JobCard = {
   id: number;
@@ -52,29 +53,24 @@ export default function JobCard(props: JobCard) {
           <h2 className="job__card__role--text text-cyan-400">{props.position}</h2>
         </Link>
         <div className="job__card--tools">
-          {props.role && (
-            <div className="tool bg-black/5 dark:bg-white/5 text-slate-900 dark:text-slate-50" onClick={() => dispatch(addTag(props.role))}>
-              {props.role}
-            </div>
-          )}
-          {props.level && (
-            <div className="tool bg-black/5 dark:bg-white/5 text-slate-900 dark:text-slate-50" onClick={() => dispatch(addTag(props.level))}>
-              {props.level}
-            </div>
-          )}
           {props.skills.map((skill: any, index: any) => (
-            <div key={index} className="tool bg-black/5 dark:bg-white/5 text-slate-900 dark:text-slate-50" onClick={() => dispatch(addTag(skill))}>
+            <div key={index} className="tool bg-black/5 dark:bg-white/5 text-slate-900 dark:text-slate-50" onClick={() => dispatch(addFilter({ filterType: 'skills', value: skill }))}>
               {skill}
             </div>
           ))}
         </div>
-        <h3 className="job__card__features--text text-slate-500">
+        <div className="job__card__features--text text-slate-500 text-xs flex">
           {props.date}
           <span className="dot">·</span>
           {props.contract}
           <span className="dot">·</span>
+          {props.level}
+          <span className="dot">·</span>
+          <div className="flex inline-block align-middle justify-center gap-1">
+          {props.location === 'Remoto' ? <Wifi className="w-3 h-3" /> : <MapPin className="w-3 h-3" />}
           {props.location}
-        </h3>
+          </div>
+        </div>
       </div>
     </div>
   )

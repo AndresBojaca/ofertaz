@@ -2,7 +2,6 @@
 
 import { useSearchParams } from "next/navigation";
 import JobList from "@/components/JobList/JobList";
-import TagsCard from "@/components/TagsCard/TagsCard";
 
 export default function Jobs() {
   const searchParams = useSearchParams();
@@ -12,7 +11,6 @@ export default function Jobs() {
 
   return (
     <>
-      <TagsCard />
       <JobList searchText={query || ''} />  
     </>
   );

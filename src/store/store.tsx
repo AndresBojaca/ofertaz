@@ -2,13 +2,13 @@
 
 import { configureStore } from '@reduxjs/toolkit';
 import sessionReducer from './userSlice';
-import tagsReducer from './TagsSlice';
+import filtersReducer from './filterSlice';
 
 // Configurar el store con los reducers
 const store = configureStore({
   reducer: {
     session: sessionReducer,
-    tags: tagsReducer,
+    filters: filtersReducer,
   },
 });
 

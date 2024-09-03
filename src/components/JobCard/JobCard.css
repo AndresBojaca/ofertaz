@@ -42,7 +42,6 @@
     cursor: pointer;
 }
 .job__card__features--text{
-    font-size: 14px;
     font-weight: 300;
 }
 .job__card__features--text .dot{
